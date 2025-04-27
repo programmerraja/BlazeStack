@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "path": "server",
+      "group": "build",
+      "label": "npm: build - server",
+      "detail": "Build the server TypeScript code",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "type": "npm",
+      "script": "build",
+      "path": "client",
+      "group": "build",
+      "label": "npm: build - client",
+      "detail": "Build the client TypeScript code",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "path": "server",
+      "group": "lint",
+      "label": "npm: lint - server",
+      "detail": "Lint the server code",
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "path": "client",
+      "group": "lint",
+      "label": "npm: lint - client",
+      "detail": "Lint the client code",
+      "problemMatcher": ["$eslint-stylish"]
+    }
+  ]
+}
