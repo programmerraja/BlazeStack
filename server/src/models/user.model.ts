@@ -62,8 +62,10 @@ userSchema.methods.matchPassword = async function (enteredPassword: string) {
 
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function () {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET as string, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_EXPIRES_IN as string,
   });
 };
 

@@ -22,7 +22,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: config.isDevelopment ? 'http://localhost:3000' : process.env.CLIENT_URL,
+    origin: config.isDevelopment ? 'http://localhost:5173' : process.env.CLIENT_URL,
     credentials: true,
   }),
 );

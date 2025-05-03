@@ -1,5 +1,13 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import api from '@/services/api';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import api from "@/services/api";
 
 // Define the User type
 export interface User {
@@ -20,10 +28,8 @@ interface AuthContextType {
   clearError: () => void;
 }
 
-// Create the context with a default value
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Create a provider component
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -33,13 +39,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await api.get('/auth/me');
+        const response = await api.get("/auth/me");
         if (response.data.success) {
           setUser(response.data.data);
         }
       } catch (err) {
         // User is not logged in, that's okay
-        console.log('User not authenticated');
+        console.log("User not authenticated");
       } finally {
         setLoading(false);
       }
@@ -54,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(true);
       setError(null);
 
-      const response = await api.post('/auth/login', {
+      const response = await api.post("/auth/login", {
         email,
         password,
       });
@@ -62,10 +68,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (response.data.success) {
         setUser(response.data.user);
       } else {
-        setError('Login failed');
+        setError("Login failed");
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(
+        err.response?.data?.message || "Login failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -77,7 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(true);
       setError(null);
 
-      const response = await api.post('/auth/register', {
+      const response = await api.post("/auth/register", {
         name,
         email,
         password,
@@ -86,10 +94,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (response.data.success) {
         setUser(response.data.user);
       } else {
-        setError('Registration failed');
+        setError("Registration failed");
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -99,10 +109,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     try {
       setLoading(true);
-      await api.get('/auth/logout');
+      await api.get("/auth/logout");
       setUser(null);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Logout failed. Please try again.');
+      setError(
+        err.response?.data?.message || "Logout failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -131,7 +143,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
